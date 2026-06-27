@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>دعوة زفاف يوسف و ملاك</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gulzar&display=swap" rel="stylesheet">
 
 <style>
 *{
@@ -98,6 +102,130 @@ html{
     opacity:1;
     transform:translateY(0);
 }
+
+/* استوردي الخط */
+@font-face{
+    font-family:'Aquire';
+    src:url('Aquire.otf');
+}
+
+.countdown-section{
+
+    width:100%;
+    min-height:75vh;
+
+    background:url("section4.png") center center/cover no-repeat;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+.count-content{
+    padding:20px;
+}
+
+.count-text{
+
+    font-family: "Gulzar", serif;
+    color:#7c6d5b;
+    font-size:38px; /* كبرنا الجملة */
+    margin-bottom:30px;
+    letter-spacing:2px;
+}
+
+.countdown{
+
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+
+    font-family: "Gulzar", serif;
+    color:#7c6d5b;
+}
+
+.time{
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.time span{
+
+    font-size:5.5rem;
+    line-height:1;
+    font-weight:400;
+}
+
+.time small{
+
+    margin-top:8px;
+    font-size:24px; /* كبرنا يوم - ساعة - دقيقة - ثانية */
+    letter-spacing:1px;
+}
+
+.separator{
+
+    font-size:2.5rem;
+    margin-bottom:18px;
+    opacity:.6;
+}
+
+/* Tablet */
+
+@media(max-width:768px){
+
+.count-text{
+    font-size:30px;
+}
+
+.time span{
+    font-size:2.4rem;
+}
+
+.separator{
+    font-size:2rem;
+    margin-bottom:14px;
+}
+
+.time small{
+    font-size:20px;
+}
+
+}
+
+/* Mobile */
+
+@media(max-width:480px){
+
+.countdown{
+    gap:8px;
+}
+
+.count-text{
+    font-size:24px;
+    letter-spacing:1px;
+}
+
+.time span{
+    font-size:1.8rem;
+}
+
+.separator{
+    font-size:1.5rem;
+    margin-bottom:10px;
+}
+
+.time small{
+    font-size:16px;
+}
+
+}
+
 </style>
 </head>
 <body>
@@ -129,6 +257,49 @@ html{
     </div>
 
 </section>
+
+<section class="countdown-section">
+
+    <div class="count-content">
+
+        <p class="count-text">
+            بقي على يومنا المميز
+        </p>
+
+        <div class="countdown">
+
+            <div class="time">
+                <span id="days">00</span>
+                <small>يوم</small>
+            </div>
+
+            <span class="separator">:</span>
+
+            <div class="time">
+                <span id="hours">00</span>
+                <small>ساعة</small>
+            </div>
+
+            <span class="separator">:</span>
+
+            <div class="time">
+                <span id="minutes">00</span>
+                <small>دقيقة</small>
+            </div>
+
+            <span class="separator">:</span>
+
+            <div class="time">
+                <span id="seconds">00</span>
+                <small>ثانية</small>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
 <script>
 const secondSection = document.querySelector('.fade-section');
 
@@ -143,6 +314,56 @@ const observer = new IntersectionObserver(entries => {
 });
 
 observer.observe(secondSection);
+
+const targetDate = new Date("August 26, 2026 15:00:00").getTime();
+
+const timer = setInterval(() => {
+
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    if(distance <= 0){
+
+        clearInterval(timer);
+
+        document.getElementById("days").innerHTML="00";
+        document.getElementById("hours").innerHTML="00";
+        document.getElementById("minutes").innerHTML="00";
+        document.getElementById("seconds").innerHTML="00";
+
+        return;
+    }
+
+    const days = Math.floor(distance / (1000*60*60*24));
+
+    const hours = Math.floor(
+        (distance % (1000*60*60*24)) /
+        (1000*60*60)
+    );
+
+    const minutes = Math.floor(
+        (distance % (1000*60*60)) /
+        (1000*60)
+    );
+
+    const seconds = Math.floor(
+        (distance % (1000*60)) /
+        1000
+    );
+
+    document.getElementById("days").innerHTML =
+        String(days).padStart(2,"0");
+
+    document.getElementById("hours").innerHTML =
+        String(hours).padStart(2,"0");
+
+    document.getElementById("minutes").innerHTML =
+        String(minutes).padStart(2,"0");
+
+    document.getElementById("seconds").innerHTML =
+        String(seconds).padStart(2,"0");
+
+},1000);
 </script>
 
 </body>
